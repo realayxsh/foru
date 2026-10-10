@@ -51,7 +51,7 @@ class antipinginv(Cog):
             try:
                 await author.timeout(
                     now + __import__("datetime").timedelta(minutes=15),
-                    reason="DILBAR < 3 | Anti Everyone/Here Ping"
+                    reason="Yawr Support | Anti Everyone/Here Ping"
                 )
             except Exception:
                 pass

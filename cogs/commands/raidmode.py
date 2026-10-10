@@ -24,7 +24,7 @@ class Automod(Cog):
         data = getConfig(ctx.guild.id)
         spam = data["antiSpam"]
         link = data["antiLink"]
-        embed = discord.Embed(title="DILBAR < 3 | Automod Commands",
+        embed = discord.Embed(title="Yawr Support | Automod Commands",
                               color=0x2f3136)
         embed.add_field(
             name=f"{e.dot_white} antispam on/off",

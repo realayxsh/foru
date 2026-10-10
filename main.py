@@ -95,7 +95,7 @@ class Devansh(discord.ui.Modal, title='Embed Configuration'):
         traceback.print_tb(error.__traceback__)
 
 
-@tree.command(name="embed", description="Create A Embed Using DILBAR < 3")
+@tree.command(name="embed", description="Create An Embed Using Yawr Support")
 async def _embed(interaction: discord.Interaction) -> None:
     await interaction.response.send_modal(Devansh())
 

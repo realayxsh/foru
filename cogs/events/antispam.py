@@ -65,7 +65,7 @@ class AntiSpam(Cog):
                     try:
                         await author.timeout(
                             now + datetime.timedelta(minutes=15),
-                            reason="DILBAR < 3 | Anti Spam"
+                            reason="Yawr Support | Anti Spam"
                         )
                     except Exception:
                         pass
@@ -100,7 +100,7 @@ class AntiSpam(Cog):
                         await message.delete()
                     except Exception:
                         pass
-                    reason = "DILBAR < 3 | Anti Discord Invites" if invite_matches else "DILBAR < 3 | Anti Link"
+                    reason = "Yawr Support | Anti Discord Invites" if invite_matches else "Yawr Support | Anti Link"
                     try:
                         await author.timeout(now + datetime.timedelta(minutes=15), reason=reason)
                     except Exception:

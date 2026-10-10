@@ -8,7 +8,7 @@ from core import Cog, Dilbar, Context
 
 
 class Setup(Cog):
-    """Server owner commands to configure DILBAR < 3 role permissions."""
+    """Server owner commands to configure Yawr Support role permissions."""
 
     def __init__(self, client: Dilbar):
         self.client = client
@@ -234,7 +234,7 @@ class Setup(Cog):
         owner_r   = self._role_display(ctx.guild, data.get("owner"))
 
         embed = discord.Embed(
-            title="DILBAR < 3  —  Permission Config",
+            title="Yawr Support  —  Permission Config",
             color=0x2f3136,
         )
         embed.add_field(

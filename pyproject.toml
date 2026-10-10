@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "repl_python3_Darkz-v3"
 version = "0.1.0"
-description = "DILBAR < 3 Discord Bot"
+description = "Yawr Support Discord Bot"
 authors = ["Your Name <you@example.com>"]
 
 [tool.poetry.dependencies]

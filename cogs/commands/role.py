@@ -17,12 +17,12 @@ class Server(commands.Cog):
     async def add_role(self, *, role: int, member: discord.Member):
         if member.guild.me.guild_permissions.manage_roles:
             role = discord.Object(id=int(role))
-            await member.add_roles(role, reason="DILBAR < 3 | Role Added ")
+            await member.add_roles(role, reason="Yawr Support | Role Added ")
 
     async def remove_role(self, *, role: int, member: discord.Member):
         if member.guild.me.guild_permissions.manage_roles:
             role = discord.Object(id=int(role))
-            await member.remove_roles(role, reason="DILBAR < 3 | Role Removed")
+            await member.remove_roles(role, reason="Yawr Support | Role Removed")
 
     @commands.command(name="owner",
                       description="Gives the owner role to the user .",

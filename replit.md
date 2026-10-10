@@ -1,4 +1,4 @@
-# DILBAR < 3 — Discord Bot
+# Yawr Support — Discord Bot
 
 A Discord bot built with discord.py 2.x, with moderation, anti-nuke, welcome messages, voice moderation, server role management, and admin utilities.
 
@@ -60,7 +60,7 @@ In Replit, add `TOKEN` in Tools > Secrets. For local runs, create a `.env` file 
 
 ```ini
 [Unit]
-Description=DILBAR Discord Bot
+Description=Yawr Support Discord Bot
 After=network.target
 
 [Service]
