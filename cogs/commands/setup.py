@@ -146,48 +146,6 @@ class Setup(Cog):
         await ctx.reply(embed=embed, mention_author=False)
 
     @commands.hybrid_command(
-        name="setantinukelog",
-        aliases=["setantilog", "setnukelog"],
-        description="Set the channel for anti-nuke action logs.",
-        usage="setantinukelog <#channel>",
-    )
-    @blacklist_check()
-    @ignore_check()
-    @server_owner_check()
-    async def set_antinukelog(self, ctx: Context, channel: discord.TextChannel):
-        data = getConfig(ctx.guild.id)
-        data["antinukelog"] = channel.id
-        updateConfig(ctx.guild.id, data)
-        embed = discord.Embed(
-            description=f"{e.green_tick} | **Anti-nuke log** channel set to {channel.mention}\n"
-                        f"All anti-nuke actions (bans, kicks, role strips) will be logged there.",
-            color=0x2f3136,
-        )
-        embed.set_author(name=str(ctx.author), icon_url=ctx.author.display_avatar.url)
-        await ctx.reply(embed=embed, mention_author=False)
-
-    @commands.hybrid_command(
-        name="setautomodlog",
-        aliases=["setmodlog", "setautomodchannel"],
-        description="Set the channel for automod/antispam action logs.",
-        usage="setautomodlog <#channel>",
-    )
-    @blacklist_check()
-    @ignore_check()
-    @server_owner_check()
-    async def set_automodlog(self, ctx: Context, channel: discord.TextChannel):
-        data = getConfig(ctx.guild.id)
-        data["automodlog"] = channel.id
-        updateConfig(ctx.guild.id, data)
-        embed = discord.Embed(
-            description=f"{e.green_tick} | **Automod log** channel set to {channel.mention}\n"
-                        f"All automod events (link blocks, spam) will be logged there.",
-            color=0x2f3136,
-        )
-        embed.set_author(name=str(ctx.author), icon_url=ctx.author.display_avatar.url)
-        await ctx.reply(embed=embed, mention_author=False)
-
-    @commands.hybrid_command(
         name="logchannels",
         aliases=["logconfig", "logsettings"],
         description="Show all configured log channels for this server.",
@@ -207,9 +165,7 @@ class Setup(Cog):
 
         embed = discord.Embed(title="Log Channel Config", color=0x2f3136)
         embed.add_field(name="📋 Bot Log", value=_ch(data.get("botlog")), inline=False)
-        embed.add_field(name="🛡️ Anti-Nuke Log", value=_ch(data.get("antinukelog")), inline=False)
-        embed.add_field(name="🔨 Automod Log", value=_ch(data.get("automodlog")), inline=False)
-        embed.set_footer(text="Use setbotlog / setantinukelog / setautomodlog to configure")
+        embed.set_footer(text="Use setbotlog to configure")
         embed.set_author(name=str(ctx.author), icon_url=ctx.author.display_avatar.url)
         await ctx.reply(embed=embed, mention_author=False)
 

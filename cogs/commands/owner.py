@@ -61,15 +61,6 @@ class Owner(commands.Cog):
     @commands.is_owner()
     async def _sync(self, ctx):
         await ctx.reply("Syncing...", mention_author=False)
-        with open('anti.json', 'r') as f:
-            data = json.load(f)
-        for guild in self.client.guilds:
-            if str(guild.id) not in data['guild']:
-                data['guilds'][str(guild.id)] = 'on'
-                with open('anti.json', 'w') as f:
-                    json.dump(data, f, indent=4)
-            else:
-                pass
         with open('config.json', 'r') as f:
             data = json.load(f)
         for op in data["guilds"]:

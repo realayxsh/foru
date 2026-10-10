@@ -1,6 +1,6 @@
 # Yawr Support — Discord Bot
 
-A Discord bot built with discord.py 2.x, with moderation, anti-nuke, welcome messages, voice moderation, server role management, and admin utilities.
+A Discord bot built with discord.py 2.x, with moderation, welcome messages, voice moderation, server role management, and admin utilities. Anti-Nuke and Automod (anti-spam, anti-link, and mass-ping protection) have been removed; existing JSON settings are retained.
 
 The displayed bot name is **Yawr Support**. Keep internal `Dilbar` class and module names for compatibility. The Discord account username is managed separately in Discord; changing source labels does not rename that account. Leave the imported project stopped unless the user asks to run it.
 
@@ -36,11 +36,11 @@ In Replit, add `TOKEN` in Tools > Secrets. For local runs, create a `.env` file 
 - `core/Dilbar.py` — AutoShardedBot subclass with custom prefix logic
 - `core/Context.py` — custom Context with Component V2 auto-conversion
 - `cogs/commands/` — all command cogs
-- `cogs/events/` — all event cogs (anti-nuke, logging, etc.)
+- `cogs/events/` — event cogs (logging, welcome, and other active features)
 - `utils/` — shared helpers (config, permissions, emojis, tools)
 - `config.json` — per-guild settings (prefix, roles)
 - `database.json` — per-guild extended data (welcome, autorole, etc.)
-- `anti.json` — anti-nuke settings per guild
+- `anti.json` — retained legacy Anti-Nuke settings; no longer used by the bot
 - `badges.json` — custom badge data per user
 
 ## Architecture decisions

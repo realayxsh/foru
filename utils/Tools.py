@@ -70,10 +70,6 @@ def getConfig(guildID):
         data = json.load(config)
     if str(guildID) not in data["guilds"]:
         defaultConfig = {
-            "antiSpam": False,
-            "antiLink": False,
-            "whitelisted": [],
-            "punishment": "ban",
             "prefix": "-",
             "staff": None,
             "vip": None,
@@ -88,17 +84,13 @@ def getConfig(guildID):
             "gmod": None,
             "gadmin": None,
             "headmod": None,
-            "wlrole": None,
             "botlog": None,
-            "antinukelog": None,
-            "automodlog": None,
         }
         updateConfig(guildID, defaultConfig)
         return defaultConfig
     cfg = data["guilds"][str(guildID)]
-    for key in ("botlog", "antinukelog", "automodlog"):
-        if key not in cfg:
-            cfg[key] = None
+    if "botlog" not in cfg:
+        cfg["botlog"] = None
     return cfg
 
 
@@ -173,25 +165,6 @@ def makebadges(userid, data):
     new = json.dumps(badges, indent=4, ensure_ascii=False)
     with open("badges.json", "w") as w:
         w.write(new)
-
-
-def getanti(guildid):
-    with open("anti.json", "r") as config:
-        data = json.load(config)
-    if str(guildid) not in data["guilds"]:
-        default = "off"
-        updateanti(guildid, default)
-        return default
-    return data["guilds"][str(guildid)]
-
-
-def updateanti(guildid, data):
-    with open("anti.json", "r") as config:
-        config = json.load(config)
-    config["guilds"][str(guildid)] = data
-    newdata = json.dumps(config, indent=4, ensure_ascii=False)
-    with open("anti.json", "w") as config:
-        config.write(newdata)
 
 
 class Timer:

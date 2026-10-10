@@ -91,15 +91,21 @@ class HelpCommand(commands.HelpCommand):
 
         embed.set_footer(text="Yawr Support",
                          icon_url=self.context.bot.user.display_avatar.url)
+
+        modules = []
+        seen_labels = set()
+        for cog in mapping:
+            help_custom = getattr(cog, "help_custom", None)
+            if help_custom is None:
+                continue
+            _, label, _ = help_custom()
+            if label and label not in seen_labels:
+                modules.append(f"{e.dot_white} {label}")
+                seen_labels.add(label)
+
         embed.add_field(
-            name="__Main Module__",
-            value=
-            f"""{e.bla}{e.antinuke} AntiNuke\n{e.bla}{e.general} General\n{e.bla}{e.music} Music\n{e.bla}{e.raidmode} Automod\n{e.bla}{e.welcome} Welcome\n{e.bla}{e.premium} Vanityroles\n{e.bla}{e.ticket} Ticket""",
-            inline=False)
-        embed.add_field(
-            name="__Extras Module__",
-            value=
-            f"""{e.bla}{e.server} Server\n{e.bla}{e.moderation} Moderation\n{e.bla}{e.games} Games\n{e.bla}{e.utility} Utility\n{e.bla}{e.icon_voice} Voice\n{e.bla}{e.voice} VcRoles\n{e.bla}{e.nsfw} Ignore\n{e.bla}{e.encryption} Encryption\n{e.bla}{e.paint} Fun\n{e.bla}{e.verified} Verification""",
+            name="__Available Modules__",
+            value="\n".join(modules) if modules else "No categorized commands are available.",
             inline=False)
         embed.set_author(name=self.context.author.name,
                          icon_url=self.context.author.display_avatar.url)
