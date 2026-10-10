@@ -8,7 +8,7 @@
 class Emojis:
     # ── Success / Failure ───────────────────────────────────
     green_tick   = "<:green_tick:1088307268589736008>"
-    red_cross    = "<:red_cross:1088307268589736009>"
+    red_cross    = "<a:red_cross:1103371611983327322>"
     tick         = "✅"
     cross        = "❌"
     cross_anim   = "<a:cross_anim:1088307268589736010>"
