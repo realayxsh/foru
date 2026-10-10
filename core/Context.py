@@ -6,7 +6,7 @@ import functools
 from functools import cached_property
 from typing import Optional, Any
 import asyncio
-from utils.components import build_layout
+from utils.components import _convert_kwargs
 
 __all__ = ("Context", )
 
@@ -52,31 +52,8 @@ class Context(commands.Context):
 
     @staticmethod
     def _convert_to_v2(kwargs: dict) -> dict:
-        embed = kwargs.pop('embed', None)
-        embeds = kwargs.pop('embeds', None)
-        existing_view = kwargs.pop('view', None)
-
-        if embed is not None or embeds:
-            if isinstance(existing_view, discord.ui.LayoutView):
-                layout = existing_view
-                if embed is not None:
-                    from utils.components import embed_to_container
-                    layout.add_item(embed_to_container(embed))
-                elif embeds:
-                    from utils.components import embed_to_container
-                    for e in embeds:
-                        layout.add_item(embed_to_container(e))
-            else:
-                layout = build_layout(
-                    embed=embed,
-                    embeds=embeds,
-                    existing_view=existing_view,
-                )
-            kwargs['view'] = layout
-        elif existing_view is not None:
-            kwargs['view'] = existing_view
-
-        return kwargs
+        # Use the shared converter so interactive views keep their embeds.
+        return _convert_kwargs(kwargs)
 
     async def send(self,
                    content: Optional[str] = None,

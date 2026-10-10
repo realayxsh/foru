@@ -4,6 +4,14 @@ from utils.Tools import *
 from utils.emojis import e
 
 
+def component_emoji(value, bot):
+  """Omit inaccessible custom emojis rather than sending an invalid component."""
+  parsed = discord.PartialEmoji.from_str(str(value))
+  if parsed.id is not None and bot.get_emoji(parsed.id) is None:
+    return None
+  return parsed
+
+
 class Dropdown(discord.ui.Select):
 
   def __init__(self, ctx, options):
@@ -33,7 +41,12 @@ class Buttons(discord.ui.Button):
                args=None):
     disable = False
     if args == -1 or args == 0: disable = True
-    super().__init__(emoji=emoji, style=style, disabled=disable)
+    resolved_emoji = component_emoji(emoji, ctx.bot)
+    label = ("Close" if args is None else
+             {0: "First", -1: "Previous", 1: "Next"}.get(args, "Last"))
+    super().__init__(emoji=resolved_emoji,
+                     label=None if resolved_emoji else label,
+                     style=style, disabled=disable)
     self.command = command
     self.invoker = ctx.author
     self.args = args
@@ -113,12 +126,14 @@ class View(discord.ui.View):
   def gen_embeds(self):
     options, embeds = [], []
     options.append(
-      discord.SelectOption(label="Home", emoji=f'{e.dev_anim}'))
+      discord.SelectOption(label="Home",
+                           emoji=component_emoji(e.dev_anim, self.ctx.bot)))
     embeds.append(self.home)
     for cog in self.get_cogs():
       if "help_custom" in dir(cog):
         emoji, label, description = cog.help_custom()
-        options.append(discord.SelectOption(label=label, emoji=emoji))
+        options.append(discord.SelectOption(
+          label=label, emoji=component_emoji(emoji, self.ctx.bot)))
         embed = discord.Embed(title=f"{emoji} {label} Commands", color=0x2f3136)
         embed.set_footer(
           text="Yawr Support",
@@ -140,7 +155,7 @@ class View(discord.ui.View):
     await interaction.delete_original_message()
 
   async def to_page(self, page: int, interaction: discord.Interaction):
-    if not self.index + page < 0 or not self.index + page > len(self.options):
+    if 0 <= self.index + page < len(self.embeds):
       await self.set_index(page)
       embed = self.embeds[self.index]
 

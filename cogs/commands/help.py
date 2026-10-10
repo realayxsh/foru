@@ -10,60 +10,42 @@ from utils.emojis import e
 from itertools import chain
 from utils import *
 import json
+import logging
 from utils import help as vhelp
 from utils import Paginator, DescriptionEmbedPaginator, FieldPagePaginator, TextPaginator
 
-client = Dilbar()
+logger = logging.getLogger(__name__)
 
 
 class HelpCommand(commands.HelpCommand):
 
     async def on_help_command_error(self, ctx, error):
-        damn = [
-            commands.CommandOnCooldown, commands.CommandNotFound,
-            discord.HTTPException, commands.CommandInvokeError
-        ]
-        if not type(error) in damn:
-            await self.context.reply(
-                f"Unknown Error Occurred\n{error.original}",
-                mention_author=False)
-        else:
-            if type(error) == commands.CommandOnCooldown:
-                return
+        original = getattr(error, "original", error)
+        logger.error("Help command failed", exc_info=(
+            type(original), original, original.__traceback__))
+        if isinstance(original, discord.Forbidden):
+            # Sending another message to the same channel would fail too.
+            return
+        if isinstance(error, commands.CommandOnCooldown):
+            return await ctx.send(
+                f"Please wait {error.retry_after:.1f} seconds before using help again.")
+        if isinstance(original, discord.HTTPException):
+            return await ctx.send(
+                "I couldn't display the help menu. Check my Send Messages, "
+                "Embed Links and Use External Emojis permissions. "
+                "The error details are in the bot logs.")
+        await super().on_help_command_error(ctx, error)
 
-                return await super().on_help_command_error(ctx, error)
-
-    async def command_not_found(self, string: str) -> None:
-        with open('blacklist.json', 'r') as f:
-            data = json.load(f)
-        if str(self.context.author.id) in data["ids"]:
-            embed = discord.Embed(
-                title=f"{e.cross_anim} Blacklisted",
-                description=
-                "You Are Blacklisted From Using My Commands.\nIf You Think That It Is A Mistake, You Can Appeal In Our Support Server By Clicking [here](https://discord.gg/HyWQdHjNPz)",
-                color=0x2f3136)
-            await self.context.reply(embed=embed, mention_author=False)
-        else:
-
-            if string in ("security", "anti","antinuke"):
-                cog = self.context.bot.get_cog("Antinuke")
-                with suppress(discord.HTTPException):
-                    await self.send_cog_help(cog)
-            else:
-                msg = f"Command `{string}` is not found...\n"
-                devansh = await self.context.bot.fetch_user(282494845753491456)
-                cmds = (str(cmd) for cmd in self.context.bot.walk_commands())
-                mtchs = get_close_matches(string, cmds)
-                if mtchs:
-                    for okaay, okay in enumerate(mtchs, start=1):
-                        msg += f"Did You Mean: \n`[{okaay}]`. `{okay}`\n"
-                embed1 = discord.Embed(
-                    color=0x2f3136,
-                    title=f"Command `{string}` is not found...\n",
-                    description=f"Did You Mean: \n`[{okaay}]`. `{okay}`\n")
-                embed1.set_footer(text=f"Developed By {devansh}",
-                                  icon_url=devansh.display_avatar.url)
-                return None
+    async def command_not_found(self, string: str) -> str:
+        # HelpCommand sends this text itself. Do not fetch unrelated users or
+        # rely on a suggestion existing for every misspelled command.
+        safe_name = discord.utils.escape_mentions(string)
+        matches = get_close_matches(
+            string, (str(cmd) for cmd in self.context.bot.walk_commands()))
+        message = f"Command `{safe_name}` was not found."
+        if matches:
+            message += "\nDid you mean: " + ", ".join(f"`{name}`" for name in matches)
+        return message
 
     async def send_bot_help(self, mapping):
         await self.context.typing()
@@ -80,8 +62,8 @@ class HelpCommand(commands.HelpCommand):
             return await self.context.reply(embed=embed, mention_author=False)
         elif str(self.context.channel.id) in randi["ids"]:
             return None
-        data = getConfig(self.context.guild.id)
-        prefix = data["prefix"]
+        prefix = (getConfig(self.context.guild.id)["prefix"]
+                  if self.context.guild else "-")
         perms = discord.Permissions.none()
         perms.read_messages = True
         perms.external_emojis = True
@@ -100,16 +82,15 @@ class HelpCommand(commands.HelpCommand):
                                       permissions=perms)
         filtered = await self.filter_commands(self.context.bot.walk_commands(),
                                               sort=True)
-        devansh = await self.context.bot.fetch_user(282494845753491456)
         embed = discord.Embed(
             title="Help Command Overview :",
             description=
-            f"{e.dot_white} Prefix for this server is `{'-f'}`\n{e.dot_white} Total Commands: {len(set(self.context.bot.walk_commands()))} | Usable by you (here): {len(set(filtered))}\n{e.dot_white} Type `{'-'}help <command | module>` for more info.\n{e.dot_white} | [Support Server](https://discord.gg/HyWQdHjNPz) | [Invite](https://discord.com/api/oauth2/authorize?client_id=1097475016880304180&permissions=8&scope=bot) \n{e.dot_white} __Slash Commands would not work__ ",
+            f"{e.dot_white} Prefix for this server is `{prefix}`\n{e.dot_white} Total Commands: {len(set(self.context.bot.walk_commands()))} | Usable by you (here): {len(set(filtered))}\n{e.dot_white} Type `{prefix}help <command | module>` for more info.\n{e.dot_white} | [Support Server](https://discord.gg/HyWQdHjNPz) | [Invite]({inv})",
             color=0x2f3136)
         embed.set_thumbnail(url=self.context.bot.user.display_avatar.url)
 
-        embed.set_footer(text=f"Developed By {devansh}",
-                         icon_url=devansh.display_avatar.url)
+        embed.set_footer(text="Yawr Support",
+                         icon_url=self.context.bot.user.display_avatar.url)
         embed.add_field(
             name="__Main Module__",
             value=
@@ -245,6 +226,7 @@ class HelpCommand(commands.HelpCommand):
 class Help(Cog, name="help"):
 
     def __init__(self, client: Dilbar):
+        self.client = client
         self._original_help_command = client.help_command
         attributes = {
             'name':
@@ -260,4 +242,4 @@ class Help(Cog, name="help"):
         client.help_command.cog = self
 
     async def cog_unload(self):
-        self.help_command = self._original_help_command
+        self.client.help_command = self._original_help_command

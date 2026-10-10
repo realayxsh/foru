@@ -121,6 +121,10 @@ async def global_permission_check(ctx) -> bool:
     if not ctx.guild:
         return False
 
+    # Help describes commands; it does not grant permission to run them.
+    if ctx.command is not None and ctx.command.qualified_name == "help":
+        return True
+
     # Server owner → full access
     if _is_server_owner(ctx):
         return True
