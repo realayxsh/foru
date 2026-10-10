@@ -1,0 +1,3 @@
+- [Discord bot library setup](discord-bot-library.md) — this bot uses discord.py 2.x (NOT py-cord); they conflict at the discord module level
+- [Discord Cog slash groups](discord-cog-groups.md) — let add_cog register class-level app-command groups; manual cog_load registration causes duplicate-command errors
+- [Dependency install order](dep-install-order.md) — jishaku/discord-ext-menus/reactionmenu pull in discord.py and must be installed before discord.py git version wins
