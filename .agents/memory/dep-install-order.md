@@ -1,16 +1,10 @@
 ---
-name: Dependency install order
-description: Installation order matters — discord.py (git) must be installed LAST or other packages overwrite it with an older version.
+name: Replit Python dependency setup
+description: Git dependencies can fail under the imported Poetry environment; prefer compatible registry releases.
 ---
 
-## Rule
-Always run `install.sh` (not plain `pip install -r requirements.txt`) in this project.
+Use compatible registry releases rather than Git dependencies when a development checkout is not necessary.
 
-**Why:** jishaku, discord-ext-menus, and reactionmenu all declare `discord.py` as a pip dependency and pull in a pinned older version. When installed together, whichever runs last wins the `discord` module path. The git version of discord.py must win.
+**Why:** The Replit package installer attempted to clone Git dependencies into a read-only Nix Python prefix and failed with permission denied. Resolving released discord.py and jishaku versions together succeeded; the prior assumption that separate installation order was required no longer applies to these releases.
 
-**How to apply:**
-1. Install all other packages first
-2. Install jishaku with `--no-deps` to prevent it pulling in the old discord.py
-3. The discord.py git version stays as the winner
-
-See `install.sh` for the correct sequence.
+**How to apply:** Use the package-management tools with registry package versions. Retain discord.py >=2.6 for Component V2 support. If using TOML, quote package keys containing dots so they are not interpreted as nested tables.

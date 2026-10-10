@@ -7,6 +7,8 @@ The displayed bot name is **Yawr Support**. Keep internal `Dilbar` class and mod
 ## Run & Operate
 
 - Start the bot in Replit with the **Start Bot** workflow (`python main.py`).
+- Dependencies in Replit are managed by Poetry (`pyproject.toml` and `poetry.lock`). Restore them with `poetry install --no-root` on a fresh environment.
+- A successful connection logs `Shard ID 0 has connected to Gateway`, followed by `Loaded & Online!`. The Flask keep-alive response alone does not confirm Discord connectivity.
 - For local runs, provide `TOKEN` in the environment or a `.env` file, then run `python main.py`.
 - On AWS: `bash start.sh`
 - With Docker: `docker build -t dilbar . && docker run --env-file .env dilbar`
@@ -21,7 +23,7 @@ In Replit, add `TOKEN` in Tools > Secrets. For local runs, create a `.env` file 
 
 ## Stack
 
-- Python 3.11
+- Python 3.10
 - discord.py 2.x (NOT py-cord; they conflict)
 - jishaku (debug extension)
 - wavelink (used by the disabled music cog)
