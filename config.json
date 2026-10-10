@@ -674,6 +674,30 @@
             "botlog": null,
             "antinukelog": null,
             "automodlog": null
+        },
+        "1502348181789474977": {
+            "antiSpam": false,
+            "antiLink": false,
+            "whitelisted": [],
+            "punishment": "ban",
+            "prefix": "-",
+            "staff": null,
+            "vip": null,
+            "girl": null,
+            "guest": null,
+            "frnd": null,
+            "owner": null,
+            "coown": null,
+            "headadmin": null,
+            "admin": null,
+            "mod": null,
+            "gmod": null,
+            "gadmin": null,
+            "headmod": null,
+            "wlrole": null,
+            "botlog": null,
+            "antinukelog": null,
+            "automodlog": null
         }
     }
 }
