@@ -7,11 +7,11 @@
 
 class Emojis:
     # ── Success / Failure ───────────────────────────────────
-    green_tick   = "<:green_tick:1088307268589736008>"
+    green_tick   = "<a:green_tick:1103363669263405157>"
     red_cross    = "<a:red_cross:1103371611983327322>"
-    tick         = "✅"
-    cross        = "❌"
-    cross_anim   = "<a:cross_anim:1088307268589736010>"
+    tick         = "<a:green_tick:1103363669263405157>"
+    cross        = "<a:red_cross:1103371611983327322>"
+    cross_anim   = "<a:red_cross:1103371611983327322>"
 
     # ── Yes / No ────────────────────────────────────────────
     yes          = "✅"
