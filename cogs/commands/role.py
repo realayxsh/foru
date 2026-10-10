@@ -1232,7 +1232,7 @@ class Server(commands.Cog):
                 numbers.append(autoresponsecount)
             if len(numbers) >= 20:
                 hacker6 = discord.Embed(
-                    title="VesTrol",
+                    title="Yawr Support",
                     description=
                     f"{e.red_cross} You can\'t add more than 20 autoresponses in {ctx.guild.name}",
                     color=0x2f3136)
@@ -1243,7 +1243,7 @@ class Server(commands.Cog):
         if str(ctx.guild.id) in autoresponse:
             if name in autoresponse[str(ctx.guild.id)]:
                 hacker = discord.Embed(
-                    title="VesTrol",
+                    title="Yawr Support",
                     description=
                     f"{e.red_cross} The autoresponse with the `{name}` is already in {ctx.guild.name}",
                     color=0x2f3136)
@@ -1256,7 +1256,7 @@ class Server(commands.Cog):
             with open("autoresponse.json", "w") as f:
                 json.dump(autoresponse, f, indent=4)
             hacker1 = discord.Embed(
-                title="VesTrol",
+                title="Yawr Support",
                 description=
                 f"{e.green_tick} | Successfully Created Autoresponder in {ctx.guild.name} with the `{name}`",
                 color=0x2f3136)
@@ -1273,7 +1273,7 @@ class Server(commands.Cog):
         with open("autoresponse.json", "w") as f:
             json.dump(autoresponse, f, indent=4)
             hacker2 = discord.Embed(
-                title="VesTrol",
+                title="Yawr Support",
                 description=
                 f"{e.green_tick} | Successfully Created Autoresponder  in {ctx.guild.name} with the `{name}`",
                 color=0x2f3136)
@@ -1296,7 +1296,7 @@ class Server(commands.Cog):
                 with open("autoresponse.json", "w") as f:
                     json.dump(autoresponse, f, indent=4)
                 hacker1 = discord.Embed(
-                    title="VesTrol",
+                    title="Yawr Support",
                     description=
                     f"{e.green_tick} | Successfully Deleted Autoresponder in {ctx.guild.name} with the `{name}`",
                     color=0x2f3136)
@@ -1306,7 +1306,7 @@ class Server(commands.Cog):
                 return await ctx.reply(embed=hacker1)
             else:
                 hacker = discord.Embed(
-                    title="VesTrol",
+                    title="Yawr Support",
                     description=
                     f"{e.red_cross} No Autoresponder Found With The Name `{name}` In {ctx.guild.name}",
                     color=0x2f3136)
@@ -1316,7 +1316,7 @@ class Server(commands.Cog):
                 return await ctx.reply(embed=hacker)
         else:
             hacker2 = discord.Embed(
-                title="VesTrol",
+                title="Yawr Support",
                 description=
                 f"{e.red_cross} There is no Autoresponder in {ctx.guild.name}",
                 color=0x2f3136)
@@ -1362,7 +1362,7 @@ class Server(commands.Cog):
                 with open("autoresponse.json", "w") as f:
                     json.dump(autoresponse, f, indent=4)
                 hacker1 = discord.Embed(
-                    title="VesTrol",
+                    title="Yawr Support",
                     description=
                     f"{e.green_tick} | Successfully Edited Autoresponder in {ctx.guild.name} with the `{name}`",
                     color=0x2f3136)
@@ -1372,7 +1372,7 @@ class Server(commands.Cog):
                 return await ctx.send(embed=hacker1)
         else:
             hacker2 = discord.Embed(
-                title="VesTrol",
+                    title="Yawr Support",
                 description=
                 f"{e.red_cross} No Autoresponder Found With The Name `{name}` In {ctx.guild.name}",
                 color=0x2f3136)

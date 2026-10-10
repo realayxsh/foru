@@ -1,6 +1,6 @@
 
 # ============================================================
-#  DILBAR < 3  —  Permission System
+#  Yawr Support  —  Permission System
 #
 #  Role hierarchy (highest → lowest):
 #    Server Owner  →  everything

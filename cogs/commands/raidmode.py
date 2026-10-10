@@ -87,7 +87,7 @@ class Automod(Cog):
         else:
             hacker5 = discord.Embed(
                 color=0x2f3136,
-                title="VesTrol",
+                title="Yawr Support",
                 description=
                 f"{e.red_cross} | Only owner of the server can run this command"
             )

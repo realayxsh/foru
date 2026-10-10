@@ -2,6 +2,8 @@
 
 A Discord bot built with discord.py 2.x, with moderation, anti-nuke, welcome messages, voice moderation, server role management, and admin utilities.
 
+The displayed bot name is **Yawr Support**. Keep internal `Dilbar` class and module names for compatibility. The Discord account username is managed separately in Discord; changing source labels does not rename that account. Leave the imported project stopped unless the user asks to run it.
+
 ## Run & Operate
 
 - Start the bot in Replit with the **Start Bot** workflow (`python main.py`).

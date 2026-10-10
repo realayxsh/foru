@@ -1,5 +1,5 @@
 #!/bin/bash
-# DILBAR < 3 — Dependency installer
+# Yawr Support — Dependency installer
 # Run ONCE on a fresh environment before start.sh
 
 set -e

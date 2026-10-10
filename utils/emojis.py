@@ -1,6 +1,6 @@
 
 # ============================================================
-#  DILBAR < 3  —  Central Emoji Config
+#  Yawr Support  —  Central Emoji Config
 #  Edit any emoji here and it updates everywhere in the bot.
 # ============================================================
 

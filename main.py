@@ -170,7 +170,7 @@ async def on_command_completion(context: Context) -> None:
                 name=f"{e.dot_white} Command Executed In Channel :",
                 value=f"{context.channel.name}  | ID: [{context.channel.id}](https://discord.com/channel/{context.channel.id})",
                 inline=False)
-            embed.set_footer(text="Powered By VesTrol",
+            embed.set_footer(text="Powered By Yawr Support",
                              icon_url=client.user.display_avatar.url)
             if log_channel is not None:
                 await log_channel.send(embed=embed)
